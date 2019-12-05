@@ -21,17 +21,18 @@ import java.util.logging.Logger;
  * @author bactv
  */
 public class ProductDAO {
-       public static List<Product> getAllProduct() {
+
+    public static List<Product> getAllProduct() {
         // create connection
         Connection conn = DBConnection.createConnection();
 
         String sql = "select * from product";
         List<Product> products = new ArrayList<Product>();
-        
+
         PreparedStatement ptml;
         try {
             ptml = conn.prepareStatement(sql);
-           
+
             // user ResultSet Object to save all rows after select
             ResultSet rs = ptml.executeQuery();
 
@@ -47,4 +48,30 @@ public class ProductDAO {
         }
         return products;
     }
+
+    public static boolean insertProduct(Product product) {
+        // create connection 
+        Connection conn = DBConnection.createConnection();
+        try {
+            PreparedStatement ptml = null;
+            String sql = "insert into  product(productName,quanlity,productAddress) values(?,?,?)";
+
+            //
+            ptml = conn.prepareStatement(sql);
+
+            ptml.setString(1, product.getProductName());
+            ptml.setInt(2, product.getQuanlity());
+            ptml.setString(3, product.getProductAddress());
+
+            int kt = ptml.executeUpdate();
+            if (kt != 0) {
+                return true;
+            }
+            conn.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
 }

@@ -17,7 +17,11 @@ public class Product {
 
     public Product() {
     }
-
+   public Product(String productName, int quanlity, String productAddress) {
+        this.productName = productName;
+        this.quanlity = quanlity;
+        this.productAddress = productAddress;
+    }
     public Product(int id, String productName, int quanlity, String productAddress) {
         this.id = id;
         this.productName = productName;
