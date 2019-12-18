@@ -32,17 +32,17 @@
                     <label for="name">Product Name</label>
                     <input type="text" class="form-control"  placeholder="Enter Name" name="productName">
                 </div>
-                  <c:if test = "${error_name != null}">
+                <c:if test = "${error_name != null}">
                     <div class="alert alert-danger">
                         <strong>Danger!</strong> ${error_name}
                     </div>
                 </c:if>
-                
+
                 <div class="form-group">
                     <label for="quanlity">Quanlity</label>
                     <input type="number" class="form-control" placeholder="Enter Quanlity" name="quanlity">
                 </div>
-                  <c:if test = "${error_quanlity != null}">
+                <c:if test = "${error_quanlity != null}">
                     <div class="alert alert-danger">
                         <strong>Danger!</strong> ${error_quanlity}
                     </div>
@@ -51,11 +51,27 @@
                     <label for="address">Address</label>
                     <input type="text" class="form-control" placeholder="Enter Address" name="address">
                 </div>
-                  <c:if test = "${error_address != null}">
+                <c:if test = "${error_address != null}">
                     <div class="alert alert-danger">
                         <strong>Danger!</strong> ${error_address}
                     </div>
                 </c:if>
+
+                Select an store 
+                <select class="form-control" name="store_name" ">
+                    <c:forEach var="x" items="${stores}">
+                        <option value="${x.name}" ${param.store_name == x.name?"selected":""}>${x.name}</option>
+                    </c:forEach>
+                </select>
+
+                <br>
+                Select an compnay 
+                <select class="form-control" name="company" >
+                    <c:forEach var="x" items="${companys}">
+                        <option value="${x.id}" ${param.company == x.id?"selected":""}>${x.name}</option>
+                    </c:forEach>
+                </select>
+                <br>
 
                 <button type="submit" class="btn btn-primary">Create</button>
             </form>

@@ -5,17 +5,12 @@
  */
 package Controller;
 
-import DAO.CompanyDAO;
-import DAO.ProductDAO;
 import DAO.StoreDAO;
-import Model.Company;
-import Model.Product;
 import Model.Store;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,7 +19,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author bactv
  */
-public class ProductController extends HttpServlet {
+@WebServlet(name = "DeleteStoreController", urlPatterns = {"/delete-store"})
+public class DeleteStoreController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,10 +39,10 @@ public class ProductController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ProductController</title>");
+            out.println("<title>Servlet DeleteStoreController</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ProductController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet DeleteStoreController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -64,15 +60,11 @@ public class ProductController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        List<Product> listProduct = ProductDAO.getAllProduct();
-        for (Product product : listProduct) {
-            System.out.println(product.getProductName());
+        String name = request.getParameter("name");
+        StoreDAO storeDAO = new StoreDAO();
+        if(storeDAO.deleteStore(new Store(name,""))){
+           response.sendRedirect("store");
         }
-    
-        request.setAttribute("listProduct", listProduct);
-
-        RequestDispatcher rd = request.getRequestDispatcher("view/product.jsp");
-        rd.forward(request, response);
     }
 
     /**

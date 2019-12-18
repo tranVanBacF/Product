@@ -6,7 +6,9 @@
 package DAO;
 
 import DB.DBConnection;
+import Model.Store;
 import Model.Product;
+import Model.Store;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,47 +22,39 @@ import java.util.logging.Logger;
  *
  * @author bactv
  */
-public class ProductDAO {
+public class StoreDAO {
 
-    public static List<Product> getAllProduct() {
+    public static List<Store> getAllStore() {
         // create connection
         Connection conn = DBConnection.createConnection();
-
-        String sql = "select pr.id, pr.productName, pr.quanlity, cp.name, st.name, cp.id from products pr, store st, company cp\n"
-                + "where pr.companyId  = cp.id and st.name = pr.storeName";
-        List<Product> products = new ArrayList<Product>();
-
+        String sql = "select * from store";
+        List<Store> stores = new ArrayList<Store>();
         PreparedStatement ptml;
         try {
             ptml = conn.prepareStatement(sql);
-
             // user ResultSet Object to save all rows after select
             ResultSet rs = ptml.executeQuery();
-
             while (rs.next()) {// check if rs has element
-                products.add(new Product(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getString(4), rs.getString(5), rs.getInt(6)));
+                stores.add(new Store(rs.getString(1), rs.getString(2)));
             }
-
             rs.close();
             // close connection
             conn.close();
         } catch (SQLException ex) {
             Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return products;
+        return stores;
     }
 
-    public static boolean insertProduct(Product product) {
+    public static boolean insertStore(Store store) {
         // create connection 
         Connection conn = DBConnection.createConnection();
         try {
             PreparedStatement ptml = null;
-            String sql = "insert into  products(productName,quanlity,companyId,storeName) values(?,?,?,?)";
+            String sql = "insert into  store(name,address) values(?,?)";
             ptml = conn.prepareStatement(sql);
-            ptml.setString(1, product.getProductName());
-            ptml.setInt(2, product.getQuanlity());
-            ptml.setInt(3, product.getCompanyId());
-            ptml.setString(4, product.getStoreName());
+            ptml.setString(1, store.getName());
+            ptml.setString(2, store.getAddress());
             int kt = ptml.executeUpdate();
             if (kt != 0) {
                 return true;
@@ -72,19 +66,15 @@ public class ProductDAO {
         return false;
     }
 
-    public static boolean updateProduct(Product product) {
+    public static boolean updateStore(Store store) {
         // create connection 
         Connection conn = DBConnection.createConnection();
         try {
             PreparedStatement ptml = null;
-            String sql = "update   products set productName=?,quanlity=?,companyId=?,storeName=? where id = ?";
+            String sql = "update  store set address = ? where name = ?";
             ptml = conn.prepareStatement(sql);
-            ptml.setString(1, product.getProductName());
-            ptml.setInt(2, product.getQuanlity());
-            ptml.setInt(3, product.getCompanyId());
-            ptml.setString(4, product.getStoreName());
-            ptml.setInt(5, product.getId());
-
+            ptml.setString(1, store.getAddress());
+            ptml.setString(2, store.getName());
             int kt = ptml.executeUpdate();
             if (kt != 0) {
                 return true;
@@ -96,21 +86,21 @@ public class ProductDAO {
         return false;
     }
     
-     public static boolean deleteProduct(Product product) {
+         public static boolean deleteStore(Store store) {
         // create connection 
         Connection conn = DBConnection.createConnection();
         try {
             PreparedStatement ptml = null;
-            String sql = "delete products where id = ?";
+            String sql = "delete store where name = ?";
             ptml = conn.prepareStatement(sql);
-            ptml.setInt(1, product.getId());
+            ptml.setString(   1, store.getName());
             int kt = ptml.executeUpdate();
             if (kt != 0) {
                 return true;
             }
             conn.close();
         } catch (SQLException ex) {
-            Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(StoreDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
     }

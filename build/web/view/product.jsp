@@ -18,7 +18,7 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     </head>
     <body>
-
+        <jsp:include page="header.jsp"/>
         <div class="container">
             <h2>Product Table</h2>
             <br>
@@ -29,18 +29,22 @@
                     <tr>
                         <th>Product name</th>
                         <th>Quanlity</th>
-                        <th>Address</th>
+                        <th>company</th>
+                        <th>Store</th>
+
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                      <c:forEach items="${listProduct}" var="product">
-                    <tr>
-                        <td>${product.productName}</td>
-                        <td>${product.quanlity}</td>
-                        <td>${product.productAddress}</td>
-                        <td><button class="btn btn-primary">Edit</button> <button class="btn btn-danger">Delete</button></td>
-                    </tr>
+                    <c:forEach items="${listProduct}" var="product">
+                        <tr>
+                            <td>${product.productName}</td>
+                            <td>${product.quanlity}</td>
+                            <td>${product.productAddress}</td>
+                            <td>${product.storeName}</td>
+
+                            <td><button class="btn btn-primary">Edit</button> <button class="btn btn-danger">Delete</button></td>
+                        </tr>
                     </c:forEach>   
                 </tbody>
             </table>

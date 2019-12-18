@@ -18,7 +18,7 @@ public class DBConnection {
     public static Connection createConnection() {
         Connection conn = null;
         String serverName = "localhost";
-        String dbName = "hocThem";
+        String dbName = "project_block5";
         String portNumber = "1433";
         String userID = "sa";
         String password = "bacbax";

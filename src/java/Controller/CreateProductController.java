@@ -5,10 +5,15 @@
  */
 package Controller;
 
+import DAO.CompanyDAO;
 import DAO.ProductDAO;
+import DAO.StoreDAO;
+import Model.Company;
 import Model.Product;
+import Model.Store;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -59,6 +64,14 @@ public class CreateProductController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        List<Store> stores = StoreDAO.getAllStore();
+        List<Company> companys = CompanyDAO.getAllCompany();
+        System.out.println(stores);
+        System.out.println(companys);
+
+        // chuyen du lieu sang
+        request.setAttribute("companys", companys);
+        request.setAttribute("stores", stores);
         RequestDispatcher rd = request.getRequestDispatcher("view/create-product.jsp");
         rd.forward(request, response);
     }
@@ -109,7 +122,7 @@ public class CreateProductController extends HttpServlet {
             return;
         }
 
-        Product p = new Product(name, quanlityNumber, address);
+        Product p = new Product();
 
         if (ProductDAO.insertProduct(p)) {
 //            request.setAttribute("errors", "Insert  success");

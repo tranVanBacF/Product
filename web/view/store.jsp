@@ -1,5 +1,5 @@
 <%-- 
-    Document   : product
+    Document   : store
     Created on : Dec 4, 2019, 9:28:13 PM
     Author     : bactv
 --%>
@@ -9,7 +9,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Product</title>
+        <title>Store</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
@@ -20,30 +20,26 @@
     <body>
         <jsp:include page="header.jsp"/>
         <div class="container">
-            <h2>Product Table</h2>
+            <h2>Store Table</h2>
             <br>
-            <a href="create-product"  class="btn btn-success">Create</a>
+            <a href="create-store"  class="btn btn-success">Create</a>
             <br>
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>Product name</th>
-                        <th>Quanlity</th>
-                        <th>company</th>
-                        <th>Store</th>
-
+                        <th>Store Name</th>
+                        <th>Store Address</th>
                         <th>Action</th>
+
                     </tr>
                 </thead>
                 <tbody>
-                    <c:forEach items="${listProduct}" var="product">
+                    <c:forEach items="${listStore}" var="store">
                         <tr>
-                            <td>${product.productName}</td>
-                            <td>${product.quanlity}</td>
-                            <td>${product.productAddress}</td>
-                            <td>${product.storeName}</td>
+                            <td>${store.name}</td>
+                            <td>${store.address}</td>
+                            <td><button class="btn btn-danger"><a href="delete-store?name=${store.name}">Delete</a></button></td></td>
 
-                            <td><button class="btn btn-primary">Edit</button> <button class="btn btn-danger">Delete</button></td>
                         </tr>
                     </c:forEach>   
                 </tbody>

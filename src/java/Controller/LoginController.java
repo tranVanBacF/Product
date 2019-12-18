@@ -5,26 +5,24 @@
  */
 package Controller;
 
-import DAO.CompanyDAO;
-import DAO.ProductDAO;
-import DAO.StoreDAO;
-import Model.Company;
-import Model.Product;
-import Model.Store;
+import DAO.UserDAO;
+import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author bactv
  */
-public class ProductController extends HttpServlet {
+@WebServlet(name = "LoginController", urlPatterns = {"/login"})
+public class LoginController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,10 +41,10 @@ public class ProductController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ProductController</title>");
+            out.println("<title>Servlet LoginController</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ProductController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet LoginController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -64,14 +62,7 @@ public class ProductController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        List<Product> listProduct = ProductDAO.getAllProduct();
-        for (Product product : listProduct) {
-            System.out.println(product.getProductName());
-        }
-    
-        request.setAttribute("listProduct", listProduct);
-
-        RequestDispatcher rd = request.getRequestDispatcher("view/product.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("view/login.jsp");
         rd.forward(request, response);
     }
 
@@ -86,7 +77,19 @@ public class ProductController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        HttpSession session = request.getSession();
+        UserDAO userDAO = new UserDAO();
+        if (userDAO.checkUserPawword(username, password)) {
+            session.setAttribute("user", userDAO.getUser(username));
+            response.sendRedirect("product");
+            return;
+        } else {
+            request.setAttribute("error", "username or password not correct");
+            RequestDispatcher rd = request.getRequestDispatcher("view/login.jsp");
+            rd.forward(request, response);
+        }
     }
 
     /**

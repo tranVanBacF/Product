@@ -5,17 +5,14 @@
  */
 package Controller;
 
-import DAO.CompanyDAO;
-import DAO.ProductDAO;
 import DAO.StoreDAO;
-import Model.Company;
-import Model.Product;
 import Model.Store;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,7 +21,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author bactv
  */
-public class ProductController extends HttpServlet {
+@WebServlet(name = "StoreController", urlPatterns = {"/store"})
+public class StoreController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,10 +41,10 @@ public class ProductController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ProductController</title>");
+            out.println("<title>Servlet StoreController</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ProductController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet StoreController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -64,14 +62,15 @@ public class ProductController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        List<Product> listProduct = ProductDAO.getAllProduct();
-        for (Product product : listProduct) {
-            System.out.println(product.getProductName());
-        }
-    
-        request.setAttribute("listProduct", listProduct);
-
-        RequestDispatcher rd = request.getRequestDispatcher("view/product.jsp");
+        //processRequest(request, response);
+         List<Store> listStore = StoreDAO.getAllStore();
+      
+        // chuyen du lieu sang
+        request.setAttribute("listStore", listStore);
+        
+        
+  
+         RequestDispatcher rd = request.getRequestDispatcher("view/store.jsp");
         rd.forward(request, response);
     }
 
@@ -86,7 +85,9 @@ public class ProductController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+         String name = request.getParameter("name");
+        String address = request.getParameter("address");
+       
     }
 
     /**

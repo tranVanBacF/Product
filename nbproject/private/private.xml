@@ -1,4 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/Users/bactv/Documents/NetBeansProjects/lab1/src/java/Controller/CreateProductController.java</file>
+            <file>file:/C:/Users/bactv/Documents/NetBeansProjects/lab1/web/view/create-store.jsp</file>
+            <file>file:/C:/Users/bactv/Documents/NetBeansProjects/lab1/src/java/DAO/CompanyDAO.java</file>
+            <file>file:/C:/Users/bactv/Documents/NetBeansProjects/lab1/src/java/DAO/StoreDAO.java</file>
+            <file>file:/C:/Users/bactv/Documents/NetBeansProjects/lab1/src/java/DAO/ProductDAO.java</file>
+            <file>file:/C:/Users/bactv/Documents/NetBeansProjects/lab1/src/java/Model/Product.java</file>
+            <file>file:/C:/Users/bactv/Documents/NetBeansProjects/lab1/src/java/Controller/StoreController.java</file>
+            <file>file:/C:/Users/bactv/Documents/NetBeansProjects/lab1/web/WEB-INF/web.xml</file>
+        </group>
+    </open-files>
 </project-private>

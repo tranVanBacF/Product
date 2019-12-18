@@ -14,19 +14,19 @@ public class Product {
     private String productName;
     private int quanlity;
     private String productAddress;
+    private String storeName;
+    private int companyId;
 
     public Product() {
     }
-   public Product(String productName, int quanlity, String productAddress) {
-        this.productName = productName;
-        this.quanlity = quanlity;
-        this.productAddress = productAddress;
-    }
-    public Product(int id, String productName, int quanlity, String productAddress) {
+
+    public Product(int id, String productName, int quanlity, String productAddress, String storeName, int companyId) {
         this.id = id;
         this.productName = productName;
         this.quanlity = quanlity;
         this.productAddress = productAddress;
+        this.storeName = storeName;
+        this.companyId = companyId;
     }
 
     public int getId() {
@@ -60,5 +60,20 @@ public class Product {
     public void setProductAddress(String productAddress) {
         this.productAddress = productAddress;
     }
-    
+
+    public String getStoreName() {
+        return storeName;
+    }
+
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
+    }
+
+    public int getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(int companyId) {
+        this.companyId = companyId;
+    }
 }
