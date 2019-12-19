@@ -65,43 +65,4 @@ public class StoreDAO {
         }
         return false;
     }
-
-    public static boolean updateStore(Store store) {
-        // create connection 
-        Connection conn = DBConnection.createConnection();
-        try {
-            PreparedStatement ptml = null;
-            String sql = "update  store set address = ? where name = ?";
-            ptml = conn.prepareStatement(sql);
-            ptml.setString(1, store.getAddress());
-            ptml.setString(2, store.getName());
-            int kt = ptml.executeUpdate();
-            if (kt != 0) {
-                return true;
-            }
-            conn.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return false;
-    }
-    
-         public static boolean deleteStore(Store store) {
-        // create connection 
-        Connection conn = DBConnection.createConnection();
-        try {
-            PreparedStatement ptml = null;
-            String sql = "delete store where name = ?";
-            ptml = conn.prepareStatement(sql);
-            ptml.setString(   1, store.getName());
-            int kt = ptml.executeUpdate();
-            if (kt != 0) {
-                return true;
-            }
-            conn.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(StoreDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return false;
-    }
 }

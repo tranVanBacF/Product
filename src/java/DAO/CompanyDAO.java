@@ -65,43 +65,6 @@ public class CompanyDAO {
         return false;
     }
 
-    public static boolean updateCompany(Company company) {
-        // create connection 
-        Connection conn = DBConnection.createConnection();
-        try {
-            PreparedStatement ptml = null;
-            String sql = "update company set name = ?, address = ?  where id = ?";
-            ptml = conn.prepareStatement(sql);
-            ptml.setString(1, company.getName());
-            ptml.setString(2, company.getAddress());
-            ptml.setInt(3, company.getId());
-            int kt = ptml.executeUpdate();
-            if (kt != 0) {
-                return true;
-            }
-            conn.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(CompanyDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return false;
-    }
-    
-     public static boolean deleteCompany(Company company) {
-        // create connection 
-        Connection conn = DBConnection.createConnection();
-        try {
-            PreparedStatement ptml = null;
-            String sql = "delete company where id = ?";
-            ptml = conn.prepareStatement(sql);
-            ptml.setInt(1, company.getId());
-            int kt = ptml.executeUpdate();
-            if (kt != 0) {
-                return true;
-            }
-            conn.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(CompanyDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return false;
-    }
 }
+    
+
