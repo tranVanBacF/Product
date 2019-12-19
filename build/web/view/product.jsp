@@ -43,7 +43,7 @@
                             <td>${product.productAddress}</td>
                             <td>${product.storeName}</td>
 
-                            <td><button class="btn btn-primary">Edit</button> <button class="btn btn-danger">Delete</button></td>
+                            <td><button class="btn btn btn-secondary"><a href="edit-product?id=${product.id}" style="color: white">Edit</a></button> <button class="btn btn-danger"><a style="color: white" href="delete-product?id=${product.id}">Delete</a></button></td>
                         </tr>
                     </c:forEach>   
                 </tbody>

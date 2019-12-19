@@ -29,8 +29,6 @@
                     <tr>
                         <th>Store Name</th>
                         <th>Store Address</th>
-                        <th>Action</th>
-
                     </tr>
                 </thead>
                 <tbody>
@@ -38,8 +36,6 @@
                         <tr>
                             <td>${store.name}</td>
                             <td>${store.address}</td>
-                            <td><button class="btn btn-danger"><a href="delete-store?name=${store.name}">Delete</a></button></td></td>
-
                         </tr>
                     </c:forEach>   
                 </tbody>

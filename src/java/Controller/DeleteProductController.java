@@ -5,7 +5,9 @@
  */
 package Controller;
 
+import DAO.ProductDAO;
 import DAO.StoreDAO;
+import Model.Product;
 import Model.Store;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -19,8 +21,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author bactv
  */
-@WebServlet(name = "DeleteStoreController", urlPatterns = {"/delete-store"})
-public class DeleteStoreController extends HttpServlet {
+@WebServlet(name = "DeleteProductController", urlPatterns = {"/delete-product"})
+public class DeleteProductController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,10 +41,10 @@ public class DeleteStoreController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet DeleteStoreController</title>");            
+            out.println("<title>Servlet DeleteProductController</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet DeleteStoreController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet DeleteProductController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -60,11 +62,16 @@ public class DeleteStoreController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String name = request.getParameter("name");
-        StoreDAO storeDAO = new StoreDAO();
-        if(storeDAO.deleteStore(new Store(name,""))){
-           response.sendRedirect("store");
+        String id = request.getParameter("id");
+        ProductDAO productDAO = new ProductDAO();
+        Product p = new Product();
+        p.setId(Integer.parseInt(id));
+        try {
+            productDAO.deleteProduct(p);
+
+        } catch (Exception e) {
         }
+        response.sendRedirect("product");
     }
 
     /**

@@ -66,9 +66,7 @@ public class CreateProductController extends HttpServlet {
             throws ServletException, IOException {
         List<Store> stores = StoreDAO.getAllStore();
         List<Company> companys = CompanyDAO.getAllCompany();
-        System.out.println(stores);
-        System.out.println(companys);
-
+     
         // chuyen du lieu sang
         request.setAttribute("companys", companys);
         request.setAttribute("stores", stores);
@@ -92,43 +90,18 @@ public class CreateProductController extends HttpServlet {
         String name = request.getParameter("productName");
         String quanlity = request.getParameter("quanlity");
         String address = request.getParameter("address");
-
-        if (name.trim().equals("")) {
-            request.setAttribute("error_name", "Name is not empty");
-            error = true;
-        }
-        if (quanlity.trim().equals("")) {
-            request.setAttribute("error_quanlity", "quanlity is not empty");
-            error = true;
-        }
-        if (address.trim().equals("")) {
-            request.setAttribute("error_address", "Address is not empty");
-            error = true;
-        }
-
+        String store_name = request.getParameter("store_name");
+        String company_id = request.getParameter("company");
         int quanlityNumber = 0;
-
         try {
             quanlityNumber = Integer.parseInt(quanlity);
         } catch (Exception e) {
-            request.setAttribute("error_quanlity", "quanlity must be number ");
-            error = true;
         }
 
-        // CÓ LỖI THÌ KHÔNG CHO QUA
-        if (error) {
-            RequestDispatcher rd = request.getRequestDispatcher("view/create-product.jsp");
-            rd.forward(request, response);
-            return;
-        }
-
-        Product p = new Product();
+        Product p = new Product(0, name, quanlityNumber, address, store_name, Integer.parseInt(company_id));
 
         if (ProductDAO.insertProduct(p)) {
-//            request.setAttribute("errors", "Insert  success");
-//
-//            RequestDispatcher rd = request.getRequestDispatcher("view/create-product.jsp");
-//            rd.forward(request, response);
+            request.setAttribute("success", "Insert  success");
             response.sendRedirect("product");
         } else {
             request.setAttribute("errors", "Insert not success");

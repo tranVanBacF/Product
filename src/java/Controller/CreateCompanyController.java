@@ -6,12 +6,9 @@
 package Controller;
 
 import DAO.CompanyDAO;
-import DAO.StoreDAO;
 import Model.Company;
-import Model.Store;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,8 +20,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author bactv
  */
-@WebServlet(name = "CreateStoreController", urlPatterns = {"/create-store"})
-public class CreateStoreController extends HttpServlet {
+@WebServlet(name = "CreateCompanyController", urlPatterns = {"/create-company"})
+public class CreateCompanyController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,10 +40,10 @@ public class CreateStoreController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet CreateStoreController</title>");
+            out.println("<title>Servlet CreateCompanyController</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet CreateStoreController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet CreateCompanyController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -64,8 +61,7 @@ public class CreateStoreController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
-        RequestDispatcher rd = request.getRequestDispatcher("view/create-store.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("view/create-company.jsp");
         rd.forward(request, response);
     }
 
@@ -83,9 +79,9 @@ public class CreateStoreController extends HttpServlet {
         String name = request.getParameter("name");
         String address = request.getParameter("address");
 
-        StoreDAO storeDAO = new StoreDAO();
-        if (storeDAO.insertStore(new Store(name, address))) {
-            response.sendRedirect("store");
+        CompanyDAO companyDAO = new CompanyDAO();
+        if (companyDAO.insertCompany(new Company(name, address))) {
+            response.sendRedirect("company");
         }
     }
 

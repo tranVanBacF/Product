@@ -5,8 +5,12 @@
  */
 package Controller;
 
+import DAO.CompanyDAO;
+import Model.Company;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -58,7 +62,16 @@ public class CompanyController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+         //processRequest(request, response);
+         List<Company> listCompany = CompanyDAO.getAllCompany();
+      
+        // chuyen du lieu sang
+        request.setAttribute("listCompany", listCompany);
+        
+        
+  
+         RequestDispatcher rd = request.getRequestDispatcher("view/company.jsp");
+        rd.forward(request, response);
     }
 
     /**

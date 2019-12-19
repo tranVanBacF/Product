@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author bactv
+ * @author 
  */
 @WebServlet(name = "RemoveSession", urlPatterns = {"/RemoveSession"})
 public class RemoveSession extends HttpServlet {
@@ -63,8 +63,8 @@ public class RemoveSession extends HttpServlet {
         HttpSession session = request.getSession();
      // get session if exist 
         if (session != null) {
-             session.invalidate();  
-            //session.setMaxInactiveInterval(0);
+//             session.invalidate();  
+            session.setMaxInactiveInterval(0);
            response.sendRedirect("login");
         }
     }

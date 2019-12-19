@@ -6,8 +6,10 @@
 package Controller;
 
 import DAO.CompanyDAO;
+import DAO.ProductDAO;
 import DAO.StoreDAO;
 import Model.Company;
+import Model.Product;
 import Model.Store;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -23,8 +25,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author bactv
  */
-@WebServlet(name = "CreateStoreController", urlPatterns = {"/create-store"})
-public class CreateStoreController extends HttpServlet {
+@WebServlet(name = "EditProductController", urlPatterns = {"/edit-product"})
+public class EditProductController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,10 +45,10 @@ public class CreateStoreController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet CreateStoreController</title>");
+            out.println("<title>Servlet EditProductController</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet CreateStoreController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet EditProductController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -64,8 +66,15 @@ public class CreateStoreController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
-        RequestDispatcher rd = request.getRequestDispatcher("view/create-store.jsp");
+        List<Store> stores = StoreDAO.getAllStore();
+        List<Company> companys = CompanyDAO.getAllCompany();
+        String id = request.getParameter("id");
+        Product p = ProductDAO.getProductId(Integer.parseInt(id));
+        // chuyen du lieu sang
+        request.setAttribute("companys", companys);
+        request.setAttribute("stores", stores);
+        request.setAttribute("product", p);
+        RequestDispatcher rd = request.getRequestDispatcher("view/edit-product.jsp");
         rd.forward(request, response);
     }
 
@@ -80,12 +89,23 @@ public class CreateStoreController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String name = request.getParameter("name");
-        String address = request.getParameter("address");
+        String id = request.getParameter("id");
 
-        StoreDAO storeDAO = new StoreDAO();
-        if (storeDAO.insertStore(new Store(name, address))) {
-            response.sendRedirect("store");
+        String name = request.getParameter("productName");
+        String quanlity = request.getParameter("quanlity");
+        String store_name = request.getParameter("store_name");
+        String company_id = request.getParameter("company");
+
+        Product p = new Product(Integer.parseInt(id), name, Integer.parseInt(quanlity), "", store_name, Integer.parseInt(company_id));
+        if (ProductDAO.updateProduct(p)) {
+            request.setAttribute("success", "update  success");
+
+            response.sendRedirect("product");
+        } else {
+            request.setAttribute("errors", "update not success");
+            RequestDispatcher rd = request.getRequestDispatcher("view/edit-product.jsp");
+            rd.forward(request, response);
+            return;
         }
     }
 

@@ -20,20 +20,23 @@
     <body>
         <jsp:include page="header.jsp"/>
         <div class="container">
-            <h2>Product form</h2>
+            <h2>Edit Product</h2>
             <form method="post" >
+              
+                <input type="hidden"   name="id" value="${product.id}">
                 <div class="form-group">
                     <label for="name">Product Name</label>
-                    <input type="text" class="form-control"  placeholder="Enter Name" name="productName">
+                    <input type="text" class="form-control" value="${product.productName}" placeholder="Enter Name" name="productName">
                 </div>
                 <div class="form-group">
                     <label for="quanlity">Quanlity</label>
-                    <input type="number" class="form-control" placeholder="Enter Quanlity" name="quanlity">
+                    <input type="number" class="form-control" value="${product.quanlity}" placeholder="Enter Quanlity" name="quanlity">
                 </div>
+               
                 Select an store 
                 <select class="form-control" name="store_name" >
                     <c:forEach var="x" items="${stores}">
-                        <option value="${x.name}" ${param.store_name == x.name?"selected":""}>${x.name}</option>
+                        <option value="${x.name}" ${product.storeName == x.name?"selected":""}>${x.name}</option>
                     </c:forEach>
                 </select>
 
@@ -41,12 +44,17 @@
                 Select an company
                 <select class="form-control" name="company" >
                     <c:forEach var="x" items="${companys}">
-                        <option value="${x.id}" ${param.company == x.id?"selected":""}>${x.name}</option>
+                        <option value="${x.id}" ${product.companyId == x.id?"selected":""}>${x.name}</option>
                     </c:forEach>
                 </select>
                 <br>
 
-                <button type="submit" class="btn btn-primary">Create</button>
+                <button type="submit" class="btn btn-primary">Edit</button>
+                <c:if test = "${errors != null}">
+                    <div class="alert alert-danger">
+                        <strong> ${errors}</strong>
+                    </div>
+                </c:if>
             </form>
         </div>
 

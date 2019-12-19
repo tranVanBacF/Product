@@ -22,6 +22,33 @@ import java.util.logging.Logger;
  */
 public class ProductDAO {
 
+     public static Product getProductId(int id) {
+        // create connection
+        Connection conn = DBConnection.createConnection();
+
+        String sql = "select pr.id, pr.productName, pr.quanlity, cp.name, st.name, cp.id from products pr, store st, company cp\n"
+                + "where pr.companyId  = cp.id and st.name = pr.storeName and pr.id  = ?";
+        List<Product> products = new ArrayList<Product>();
+
+        PreparedStatement ptml;
+        try {
+            ptml = conn.prepareStatement(sql);
+            ptml.setInt(1, id);
+            // user ResultSet Object to save all rows after select
+            ResultSet rs = ptml.executeQuery();
+
+            while (rs.next()) {// check if rs has element
+                return (new Product(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getString(4), rs.getString(5), rs.getInt(6)));
+            }
+
+            rs.close();
+            // close connection
+            conn.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
     public static List<Product> getAllProduct() {
         // create connection
         Connection conn = DBConnection.createConnection();

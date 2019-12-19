@@ -38,24 +38,16 @@ public class AuthenticationFilter implements Filter {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         HttpSession session = httpRequest.getSession();
-        // get request path contain name project + servletPath
+
         String requestPath = httpRequest.getRequestURI();
-//          System.out.println("requestPath " + requestPath);
-        // get servlet path
-        String servletPath = httpRequest.getServletPath();
-//         System.out.println("servletPath " + servletPath);
 
-        // getroot to file
-        String realRootPath = httpRequest.getServletContext().getRealPath("");
-        //System.out.println("realRootPath " + realRootPath);
-
-        String FileRealPath = realRootPath + servletPath;
-        //System.out.println("imageRealPath " + FileRealPath);
-        File checkFile = new File(FileRealPath);
-
-        if (requestPath.contains("/product") || requestPath.contains("/surveys")
+        if (requestPath.contains("/product") || requestPath.contains("/company")
                 || requestPath.contains("/store") || requestPath.contains("/create-store")
-                || requestPath.contains("/submitters")) {
+                || requestPath.contains("/create-company")
+                || requestPath.contains("/edit-product")
+                || requestPath.contains("/delete-product")
+             || requestPath.contains("/create-product"))
+        {
 
             if (session.getAttribute("user") == null) {
                 session.setAttribute("error", " you must have to login");
